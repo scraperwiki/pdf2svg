@@ -19,13 +19,13 @@ test -e "$d" &&
 
 # Create the directory
 mkdir -p "$d"
-cp "$d/original.pdf" "$pdf"
+cp "$pdf" "$d/original.pdf"
 (
   set -e
   cd "$d"
   pdftk original.pdf burst output .%d.pdf
   for page in .[0-9]*.pdf; do
     number=$(basename $page .pdf)
-    inkscape -zl $number.svg $number.pdf
+    echo inkscape -zl $number.svg .$number.pdf
   done
 )
