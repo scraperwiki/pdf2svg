@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 # Check that a pdf is passed as input.
@@ -19,13 +19,13 @@ test -e "$d" &&
 
 # Create the directory
 mkdir -p "$d"
-ln -s "$d/original.pdf" "$pdf"
+cp "$pdf" "$d/original.pdf"
 (
   set -e
   cd "$d"
   pdftk original.pdf burst output .%d.pdf
   for page in .[0-9]*.pdf; do
-    number=$(basename $page .pdf)
+    number=$(basename $page .pdf | sed 's/^\.//')
     inkscape -zl $number.svg $number.pdf
   done
 )
