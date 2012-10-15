@@ -26,6 +26,6 @@ cp "$pdf" "$d/original.pdf"
   pdftk original.pdf burst output .%d.pdf
   for page in .[0-9]*.pdf; do
     number=$(basename $page .pdf | sed 's/^\.//')
-    inkscape -zl $number.svg $number.pdf
+    inkscape -zl $number.svg .$number.pdf
   done
 )
