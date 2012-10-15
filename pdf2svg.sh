@@ -7,7 +7,7 @@ pdf="$1"
 
 # Select the directory.
 if [ "$2" = '' ] ; then
-  d=$"$pdf"2svg
+  d="$pdf"2svg
 else
   d="$2"
 fi
