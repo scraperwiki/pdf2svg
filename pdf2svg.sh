@@ -6,9 +6,7 @@ pdf="$1"
 ! test -f "$pdf" && echo 'Specify a pdf file to be converted to svg.' && exit 1
 
 # Select the directory.
-if [ "$2" = '' ] && echo "$2" | grep -v -e '.pdf$' > /dev/null; then
-  d=$(basename "$pdf" .pdf)
-elif [ "$2" = '' ] ; then
+if [ "$2" = '' ] ; then
   d=$"$pdf"2svg
 else
   d="$2"
@@ -19,8 +17,15 @@ test -e "$d" &&
   echo "The directory ${d} already exists; remove it or specify a different output directory." &&
   exit 1
 
+# Create the directory
+mkdir -p "$d"
+ln -s "$d/original.pdf" "$pdf"
 (
-  cd $d
-  ln -s 
+  set -e
+  cd "$d"
+  pdftk original.pdf burst output .%d.pdf
+  for page in .[0-9]*.pdf; do
+    number=$(basename $page .pdf)
+    inkscape -zl $number.svg $number.pdf
+  done
 )
-echo inkscape -zl "$pdf"
