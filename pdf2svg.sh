@@ -19,7 +19,7 @@ test -e "$d" &&
 
 # Create the directory
 mkdir -p "$d"
-ln -s "$d/original.pdf" "$pdf"
+cp "$d/original.pdf" "$pdf"
 (
   set -e
   cd "$d"
